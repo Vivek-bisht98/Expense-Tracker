@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Expense</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,Helvetica,sans-serif;
+        }
+
+        body{
+            background:linear-gradient(135deg,#2563eb,#7c3aed);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+        }
+
+        .container{
+            width:90%;
+            max-width:650px;
+        }
+
+        .card{
+            background:white;
+            padding:35px;
+            border-radius:15px;
+            box-shadow:0 12px 25px rgba(0,0,0,.2);
+        }
+
+        h1{
+            text-align:center;
+            color:#2563eb;
+            margin-bottom:30px;
+        }
+
+        label{
+            display:block;
+            margin-bottom:8px;
+            font-weight:bold;
+            color:#444;
+        }
+
+        input,
+        select,
+        textarea{
+
+            width:100%;
+            padding:12px;
+            margin-bottom:20px;
+            border:1px solid #ccc;
+            border-radius:8px;
+            font-size:16px;
+            transition:.3s;
+
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus{
+
+            border-color:#2563eb;
+            outline:none;
+            box-shadow:0 0 6px rgba(37,99,235,.3);
+
+        }
+
+        textarea{
+            resize:vertical;
+            min-height:120px;
+        }
+
+        .buttons{
+            display:flex;
+            justify-content:space-between;
+            gap:15px;
+            margin-top:10px;
+        }
+
+        .btn{
+            flex:1;
+            text-align:center;
+            text-decoration:none;
+            color:white;
+            border:none;
+            padding:13px;
+            border-radius:8px;
+            font-size:16px;
+            cursor:pointer;
+            font-weight:bold;
+            transition:.3s;
+        }
+
+        .home{
+            background:#2563eb;
+        }
+
+        .update{
+            background:#16a34a;
+        }
+
+        .btn:hover{
+            opacity:.85;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>✏️ Update Expense</h1>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <label>Expense Name</label>
+
+            <input
+                type="text"
+                name="expense_name"
+                value="{{ expense.title }}"
+                required
+            >
+
+            <label>Amount</label>
+
+            <input
+                type="number"
+                name="amount"
+                value="{{ expense.amount }}"
+                required
+            >
+
+            <label>Category</label>
+
+            <select name="category">
+
+                <option value="food" {% if expense.category == "food" %}selected{% endif %}>Food</option>
+
+                <option value="transportation" {% if expense.category == "transportation" %}selected{% endif %}>Transportation</option>
+
+                <option value="entertainment" {% if expense.category == "entertainment" %}selected{% endif %}>Entertainment</option>
+
+                <option value="rent" {% if expense.category == "rent" %}selected{% endif %}>Rent</option>
+
+                <option value="other" {% if expense.category == "other" %}selected{% endif %}>Other</option>
+
+            </select>
+
+            <label>Payment Method</label>
+
+            <select name="payment">
+
+                <option value="UPI" {% if expense.payment == "UPI" %}selected{% endif %}>UPI</option>
+
+                <option value="CASH" {% if expense.payment == "CASH" %}selected{% endif %}>Cash</option>
+
+            </select>
+
+            <label>Date</label>
+
+            <input
+                type="date"
+                name="date"
+                value="{{ expense.date|date:'Y-m-d' }}"
+                required
+            >
+
+            <label>Description</label>
+
+            <textarea
+                name="description"
+            >{{ expense.description }}</textarea>
+
+            <div class="buttons">
+
+                <a href="{% url 'home' %}" class="btn home">
+                    Home
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn update"
+                >
+                    Update Expense
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

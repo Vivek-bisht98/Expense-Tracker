@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Details</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#f4f7fc;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+        }
+
+        .container{
+            width:90%;
+            max-width:700px;
+        }
+
+        .card{
+            background:white;
+            padding:35px;
+            border-radius:15px;
+            box-shadow:0 8px 20px rgba(0,0,0,.1);
+        }
+
+        h1{
+            color:#2563eb;
+            text-align:center;
+            margin-bottom:30px;
+        }
+
+        .row{
+            display:flex;
+            justify-content:space-between;
+            padding:15px 0;
+            border-bottom:1px solid #eee;
+        }
+
+        .label{
+            font-weight:bold;
+            color:#555;
+        }
+
+        .value{
+            color:#222;
+        }
+
+        .description{
+            margin-top:20px;
+            background:#f8fafc;
+            padding:20px;
+            border-radius:10px;
+            line-height:1.6;
+        }
+
+        .buttons{
+            display:flex;
+            justify-content:center;
+            gap:15px;
+            margin-top:30px;
+        }
+
+        .btn{
+            text-decoration:none;
+            color:white;
+            padding:12px 22px;
+            border-radius:8px;
+            font-weight:bold;
+            transition:.3s;
+        }
+
+        .home{
+            background:#2563eb;
+        }
+
+        .update{
+            background:#16a34a;
+        }
+
+        .delete{
+            background:#dc2626;
+        }
+
+        .btn:hover{
+            opacity:.85;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>💰 Expense Details</h1>
+
+        <div class="row">
+            <span class="label">Title</span>
+            <span class="value">{{ expense.title }}</span>
+        </div>
+
+        <div class="row">
+            <span class="label">Amount</span>
+            <span class="value">${{ expense.amount }}</span>
+        </div>
+
+        <div class="row">
+            <span class="label">Date</span>
+            <span class="value">{{ expense.date }}</span>
+        </div>
+
+        <div class="row">
+            <span class="label">Category</span>
+            <span class="value">{{ expense.category }}</span>
+        </div>
+
+        <div class="row">
+            <span class="label">Payment Method</span>
+            <span class="value">{{ expense.payment }}</span>
+        </div>
+
+        <div class="description">
+
+            <strong>Description</strong>
+
+            <br><br>
+
+            {{ expense.description|default:"No description available." }}
+
+        </div>
+
+        <div class="buttons">
+
+            <a href="{% url 'home' %}" class="btn home">
+                Home
+            </a>
+
+            <a href="{% url 'update_expense' expense.id %}" class="btn update">
+                Update
+            </a>
+
+            <a href="{% url 'delete_expense' expense.id %}" class="btn delete">
+                Delete
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
